@@ -3,12 +3,12 @@ from flask import (Flask, redirect, url_for)
 from flask_mysqldb import MySQL
 
 app = Flask(__name__, instance_relative_config=True)
-HTTP_PORT = 5000
+HTTP_PORT = 80
 
 # configure database mysql
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_HOST'] = 'sib-seal-bali-sm2.cbjgmdgmfjls.us-west-1.rds.amazonaws.com'
+app.config['MYSQL_USER'] = 'admin'
+app.config['MYSQL_PASSWORD'] = 'sayalupa'
 app.config['MYSQL_DB'] = 'seal'
 
 mysql = MySQL(app)
@@ -35,9 +35,6 @@ def create_app(test_config=None):
 
     import home
     app.register_blueprint(home.bp)
-
-    import auth
-    app.register_blueprint(auth.bp)
 
     # first route
     @app.route("/")
