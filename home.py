@@ -31,7 +31,7 @@ def add():
                             VALUES (%s, %s, %s, %s)''',
                        (user_id, title, description, image))
         mysql.connection.commit()
-        print('add data success')
+        print('data added succesfully')
         return redirect(url_for('home.home'))
 
 
@@ -49,11 +49,11 @@ def edit(id):
                             `image` = %s WHERE `blogs`.`id` = %s''',
                        (user_id, title, description, image, id))
         mysql.connection.commit()
-        print('edit data success')
+        print('data updated succesfully')
         return redirect(url_for('home.home'))
 
     cursor = mysql.connection.cursor()
-    cursor.execute("SELECT * FROM blogs WHERE id=%s", (id))
+    cursor.execute("SELECT * FROM blogs WHERE id=%s", [id])
     data = cursor.fetchall()
     return render_template('edit.html', datas=data)
 
@@ -62,7 +62,7 @@ def edit(id):
 @bp.route('/delete/<id>', methods=('GET', 'POST'))
 def delete(id):
     cursor = mysql.connection.cursor()
-    cursor.execute("DELETE FROM blogs WHERE id=%s", (id))
+    cursor.execute("DELETE FROM blogs WHERE id=%s", [id])
     mysql.connection.commit()
-    print('delete data success')
+    print('data deleted succesfully')
     return redirect(url_for('home.home'))
